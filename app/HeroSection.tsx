@@ -2,7 +2,6 @@
 import Image from "next/image";
 import { useState, useEffect } from "react";
 
-// HeroSection Component (updated to conditionally render the image as a fallback)
 function HeroSection() {
     const [videoLoadFailed, setVideoLoadFailed] = useState(false);
     const [isClient, setIsClient] = useState(false);
@@ -12,7 +11,7 @@ function HeroSection() {
     }, []);
 
     return (
-        <div className="relative z-10 flex flex-col justify-end text-left py-16 px-6 w-full h-[70vh]">
+        <div className="hero bg-transparent"> {/* Use hero class from global.css */}
             {/* Splash background image overlay (fallback if video fails) */}
             {videoLoadFailed && (
                 <div className="absolute inset-0 z-0">
@@ -27,23 +26,20 @@ function HeroSection() {
             )}
             {/* Hero background video overlay */}
             {isClient && (
-
-                <video
-                    // className="absolute inset-0 w-full h-full object-cover z-0 opacity-80"
-                    // src="https://drive.google.com/uc?export=download&id=1oByeXHT0XZfDPwbhbML9hELhJURR_BUx"
-                    // autoPlay
-                    // loop
-                    // muted
-                    // playsInline
-                    // onError={() => setVideoLoadFailed(true)} // Set state if video fails to load
-                />
+                <iframe
+                    className="absolute inset-0 w-full h-full object-cover z-0 opacity-80"
+                    src="https://player.vimeo.com/video/1093756976?autoplay=1&loop=1&muted=1&background=1"
+                    frameBorder="0"
+                    allow="autoplay; fullscreen; picture-in-picture"
+                    onError={() => setVideoLoadFailed(true)}
+                    title="Vimeo Background Video"
+                ></iframe>
             )}
             {/* Hero content - Aligned to the bottom-left */}
-            <div className="relative z-10 flex flex-col items-start justify-end w-full max-w-sm">
+            <div className="hero-content flex-col items-start justify-end w-full max-w-sm"> {/* Use hero-content class */}
                 <h1 className="text-xl sm:text-2xl font-extrabold text-white drop-shadow-lg mb-3">
                     Join our mailing list for the latest news
                 </h1>
-                {/* Email signup form */}
                 <form className="flex flex-col sm:flex-row gap-3 w-full">
                     <input
                         type="email"
@@ -62,10 +58,9 @@ function HeroSection() {
     );
 }
 
-// Main Home Component (unchanged)
 export default function Home() {
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col p-0 m-0">
             <HeroSection />
         </div>
     );
